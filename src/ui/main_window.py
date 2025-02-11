@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
         # --- Create and position the logo widget ---
         self.logo_widget = LogoWidget(self)
         # Position the logo at the top left corner (with a small margin if desired)
-        self.logo_widget.move(10, 10)
+        self.logo_widget.move(2, 2)
         self.logo_widget.raise_()
 
     def apply_settings(self):

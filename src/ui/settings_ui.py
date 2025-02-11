@@ -51,7 +51,7 @@ class SettingsUI(QWidget):
         # ----------------------
         # Populate the General Tab
         # ----------------------
-        general_layout = QVBoxLayout()
+        general_layout = QHBoxLayout()
         general_layout.addWidget(QLabel("Window Title:"))
         self.title_input = QLineEdit(self.settings_control.get_setting("window_title"))
         general_layout.addWidget(self.title_input)
@@ -61,29 +61,41 @@ class SettingsUI(QWidget):
         # Populate the Display Tab
         # ----------------------
         display_layout = QVBoxLayout()
-        
-        # Window Width Input & Slider
-        display_layout.addWidget(QLabel("Window Width:"))
+
+        # Window Width Layout
+        width_layout = QHBoxLayout()
+        width_label = QLabel("Window Width:")
+        width_label.setFixedWidth(100)  # Ensures consistent label width
+        width_layout.addWidget(width_label)
+
         self.width_input = QLineEdit(str(current_width))
-        display_layout.addWidget(self.width_input)
+        self.width_input.setFixedWidth(100)  # Adjust input box width
+        width_layout.addWidget(self.width_input)
+
+        display_layout.addLayout(width_layout)
 
         self.width_slider = QSlider(Qt.Horizontal)
         self.width_slider.setRange(100, 2000)  # Adjust range as needed
         self.width_slider.setValue(current_width)
-        # Update the text input when the slider moves
         self.width_slider.valueChanged.connect(
             lambda value: self.width_input.setText(str(value))
         )
-        # Update the slider when the text input changes
         self.width_input.textChanged.connect(
             lambda text: self.update_slider_value(text, self.width_slider)
         )
         display_layout.addWidget(self.width_slider)
 
-        # Window Height Input & Slider
-        display_layout.addWidget(QLabel("Window Height:"))
+        # Window Height Layout
+        height_layout = QHBoxLayout()
+        height_label = QLabel("Window Height:")
+        height_label.setFixedWidth(100)
+        height_layout.addWidget(height_label)
+
         self.height_input = QLineEdit(str(current_height))
-        display_layout.addWidget(self.height_input)
+        self.height_input.setFixedWidth(100)
+        height_layout.addWidget(self.height_input)
+
+        display_layout.addLayout(height_layout)
 
         self.height_slider = QSlider(Qt.Horizontal)
         self.height_slider.setRange(100, 2000)

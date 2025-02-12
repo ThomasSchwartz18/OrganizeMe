@@ -1,117 +1,145 @@
 # src/styles/settings_style.py
-
-from PyQt5.QtGui import QFontDatabase
-from src.styles.application_styles import GREEN, DARKGREEN, WHITE, BLACK, TAN, GREY, DARKGREY, FONT_PATH, DARKWHITE
+from src.styles.themes import AVAILABLE_THEMES
+from src.config import SETTINGS
 
 def get_settings_style():
-    """
-    Returns a style sheet string for the settings window.
-      - All non-input text is WHITE,
-      - QLineEdit widgets have a white background with DARKGREY text,
-      - QSlider's groove is DARKGREEN,
-      - QSlider's handle is DARKGREY,
-      - Selected tabs in QTabWidget are DARKGREEN.
-    """
-    # Load the custom font now that a QApplication exists.
-    font_id = QFontDatabase.addApplicationFont(FONT_PATH)
-    if font_id != -1:
-        FONT_FAMILY = QFontDatabase.applicationFontFamilies(font_id)[0]
-    else:
-        FONT_FAMILY = "Sans Serif"
+    current_theme = SETTINGS.get("theme", "green").lower()
+    theme = AVAILABLE_THEMES.get(current_theme, AVAILABLE_THEMES["green"])
 
     style = f"""
-    /* Style QLineEdit widgets (input boxes):
-       - White background,
-       - DARKGREY text color,
-       - A light border with slight padding */
-    
+    /* General widget styling for settings */
     QWidget {{
-        background-color: {GREEN};
-        font-family: "{FONT_FAMILY}";
-        color: {WHITE};
+        background-color: {theme['background']};
+        color: {theme['text']};
         border-radius: 4px;
     }}
     
+    /* QLineEdit styling */
     QLineEdit {{
-        background-color: {WHITE};
-        color: {GREEN};
-        border: 1px solid {DARKGREEN};
+        background-color: {theme['background']};
+        color: {theme['text']};
+        border: 1px solid {theme['button_pressed']};
         border-radius: 3px;
         padding: 3px;
     }}
 
-    /* style the placeholder text inside QLineEdits */
+    /* Placeholder text styling */
     QLineEdit::placeholder {{
-        color: {GREEN};
+        color: {theme['button']};
     }}
 
-    /* ensures the text is white */
+    /* QLabel styling */
     QLabel {{
-        color: white;
-        font-family: "{FONT_FAMILY}";
+        color: {theme['text']};
     }}
 
-    /* For buttons - can keep the existing button styles or add additional styling */
+    /* QPushButton styling */
     QPushButton {{
-        background-color: {WHITE};
-        color: {GREEN};
-        font-family: "{FONT_FAMILY}";
+        background-color: {theme['button']};
+        color: {theme['button_text']};
         border: none;
         padding: 5px;
         border-radius: 3px;
     }}
     QPushButton:pressed {{
-        background-color: {DARKWHITE};
+        background-color: {theme['button_pressed']};
+    }}
+    
+    QPushButton:hover {{
+        background-color: {theme['button_pressed']};
     }}
 
-    /* Style for QSlider (horizontal) */
+    /* QSlider styling */
     QSlider::groove:horizontal {{
         height: 8px;
-        background: {DARKGREEN};
+        background: {theme['button']};
         margin: 2px 0;
         border-radius: 4px;
     }}
 
     QSlider::handle:horizontal {{
-        background: {DARKGREY};
-        border: 1px solid {DARKGREY};
+        background: {theme['slider_groove']};
+        border: 1px solid {theme['slider_handle']};
         width: 18px;
         height: 18px;
-        margin: -5px 0;  /* Adjusts the vertical alignment */
-        border-radius: 9px;  /* Makes the handle circular */
+        margin: -5px 0;
+        border-radius: 9px;
     }}
     
-    /* Style for QTabWidget and QTabBar */
+    /* QTabWidget and QTabBar styling */
     QTabWidget::pane {{
-        border: 1px solid {DARKGREEN};
-        background-color: {GREEN};
+        border: 1px solid {theme['button_pressed']};
+        background-color: {theme['button']};
     }}
 
     QTabBar::tab {{
-        background-color: {GREEN};
-        color: {WHITE};
-        font-family: "{FONT_FAMILY}";
+        background-color: {theme['button']};
+        color: {theme['background']};
         padding: 10px;
-        border: 1px solid {DARKGREEN};
-        border-bottom-color: {GREEN}; /* Remove bottom border */
+        border: 1px solid {theme['button_pressed']};
+        border-bottom-color: {theme['background']};
     }}
 
     QTabBar::tab:selected {{
-        background-color: {DARKGREEN};
-        color: {WHITE};
-        border: 1px solid {DARKGREEN};
-        border-bottom-color: {DARKGREEN}; /* Match the background */
+        background-color: {theme['button_pressed']};
+        color: {theme['background']};
+        border: 1px solid {theme['button_pressed']};
+        border-bottom-color: {theme['button_pressed']};
     }}
 
     QTabBar::tab:hover {{
-        background-color: {DARKGREEN};
-        color: {WHITE};
+        background-color: {theme['button_pressed']};
+        color: {theme['background']};
     }}
 
+    /* QComboBox (drop-down menu) styling */
+    QComboBox {{
+        background-color: {theme['background']};
+        color: {theme['text']};
+        border: 1px solid {theme['button_pressed']};
+        border-radius: 3px;
+        padding: 5px;
+    }}
+
+    QComboBox:hover {{
+        background-color: {theme['button']};
+    }}
+
+    QComboBox::drop-down {{
+        subcontrol-origin: padding;
+        subcontrol-position: top right;
+        width: 20px;
+        border-left: 1px solid {theme['button_pressed']};
+    }}
+
+    /* Style for the popup list (the drop-down items) */
+    QComboBox QAbstractItemView {{
+        background-color: {theme['background']};
+        border: 1px solid {theme['button_pressed']};
+        /* This color applies when an item is selected */
+        selection-background-color: {theme['button_pressed']};
+        selection-color: {theme['button_text']};
+    }}
+
+    QComboBox QAbstractItemView::item {{
+        padding: 4px;
+    }}
+
+    QComboBox QAbstractItemView::item:hover {{
+        background-color: {theme['button_pressed']};
+        color: {theme['button_text']};
+    }}
+
+    QListView::item:hover {{
+    background-color: {theme['button_pressed']};
+    color: {theme['button_text']};
+    }}
+
+
+    /* Settings widget styling */
     #settingsWidget {{
-        background-color: {GREEN};
-        color: white;
-        font-family: "{FONT_FAMILY}";
+        background-color: {theme['background']};
+        color: {theme['text']};
     }}
     """
     return style

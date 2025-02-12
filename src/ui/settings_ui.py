@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton,
-    QMessageBox, QApplication, QSlider, QTabWidget
+    QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton,
+    QMessageBox, QApplication, QSlider, QTabWidget, QComboBox, QWidget
 )
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from src.config import SETTINGS
-from src.styles.settings_style import get_settings_style  # Import our settings style
+from src.styles.settings_style import get_settings_style
 
-class SettingsUI(QWidget):
+class SettingsUI(QDialog):  # Inherit from QDialog instead of QWidget
     def __init__(self, settings_control):
         super().__init__()
         self.setObjectName("settingsWidget")  # Set an object name
@@ -16,6 +16,7 @@ class SettingsUI(QWidget):
         self.setAttribute(Qt.WA_TranslucentBackground, False)
 
         self.settings_control = settings_control
+        self._is_centered = False  # Add a flag to track if the window has been centered
         self.init_ui()
 
     def init_ui(self):
@@ -48,18 +49,18 @@ class SettingsUI(QWidget):
         self.tab_widget.addTab(self.display_tab, "Display")
         self.tab_widget.addTab(self.other_tab, "Other")
 
-        # ----------------------
+        # ---------------------------
         # Populate the General Tab
-        # ----------------------
+        # ---------------------------
         general_layout = QHBoxLayout()
         general_layout.addWidget(QLabel("Window Title:"))
         self.title_input = QLineEdit(self.settings_control.get_setting("window_title"))
         general_layout.addWidget(self.title_input)
         self.general_tab.setLayout(general_layout)
 
-        # ----------------------
+        # ---------------------------
         # Populate the Display Tab
-        # ----------------------
+        # ---------------------------
         display_layout = QVBoxLayout()
 
         # Window Width Layout
@@ -109,10 +110,32 @@ class SettingsUI(QWidget):
         display_layout.addWidget(self.height_slider)
 
         self.display_tab.setLayout(display_layout)
+        
+        # --- NEW: Theme Selector ---
+        theme_layout = QHBoxLayout()
+        theme_label = QLabel("Theme:")
+        theme_layout.addWidget(theme_label)
 
-        # ----------------------
+        self.theme_combo = QComboBox()
+        # Add "Green" as an option (you can add more if available)
+        self.theme_combo.addItem("Green")
+        self.theme_combo.addItem("Pink")
+        # If you add more themes, add them here:
+        # self.theme_combo.addItem("Dark")
+        # self.theme_combo.addItem("Light")
+        
+        # Set the current selection based on settings (assuming it is stored as lowercase, e.g., "green")
+        current_theme = self.settings_control.get_setting("theme")
+        if current_theme:
+            index = self.theme_combo.findText(current_theme.capitalize())
+            if index >= 0:
+                self.theme_combo.setCurrentIndex(index)
+        theme_layout.addWidget(self.theme_combo)
+        display_layout.addLayout(theme_layout)
+
+        # -----------------------------------
         # Populate the Other Tab (placeholder)
-        # ----------------------
+        # -----------------------------------
         other_layout = QVBoxLayout()
         other_layout.addWidget(QLabel("Other settings go here"))
         self.other_tab.setLayout(other_layout)
@@ -139,36 +162,50 @@ class SettingsUI(QWidget):
         """Helper to update a slider's value if the text represents an integer."""
         if text.isdigit():
             slider.setValue(int(text))
-
-    def showEvent(self, event):
-        """Center the settings window properly after it is shown."""
-        self.center_window()
-        super().showEvent(event)
-
+            
     def center_window(self):
-        """Center the window relative to its parent if available, otherwise center on the screen."""
-        if self.parent():
-            parent_geo = self.parent().frameGeometry()
+        """Center the window relative to its parent or the screen."""
+        if self._is_centered:
+            return  # Skip if already centered
+
+        # Get the top-level window (the main application window)
+        top_window = self.window()
+        if top_window:
+            parent_geo = top_window.frameGeometry()
             center_point = parent_geo.center()
         else:
             center_point = QApplication.primaryScreen().availableGeometry().center()
         frame_geo = self.frameGeometry()
         frame_geo.moveCenter(center_point)
         self.move(frame_geo.topLeft())
+        self._is_centered = True  # Mark the window as centered
+
+    def showEvent(self, event):
+        """Center the settings window properly after it is shown."""
+        super().showEvent(event)
+        # Use a QTimer to delay the centering logic slightly
+        QTimer.singleShot(100, self.center_window)
+
+    def moveEvent(self, event):
+        """Prevent the window from being moved after it is centered."""
+        if self._is_centered:
+            # If the window has already been centered, block further moves
+            self.center_window()
+        super().moveEvent(event)
 
     def save_settings(self):
         try:
             self.settings_control.update_setting("window_title", self.title_input.text())
             self.settings_control.update_setting("window_width", int(self.width_input.text()))
             self.settings_control.update_setting("window_height", int(self.height_input.text()))
+            # Save the theme setting (converted to lowercase for consistency)
+            self.settings_control.update_setting("theme", self.theme_combo.currentText().lower())
             self.settings_control.save_settings()
-
-            # Update the fixed size with the new settings and re-center the window.
-            new_width = self.settings_control.get_setting("window_width")
-            new_height = self.settings_control.get_setting("window_height")
-            self.setFixedSize(new_width // 2, new_height // 2)
-            self.center_window()
-
+            
+            # Optionally, if you need to trigger the update explicitly, call:
+            if hasattr(self.settings_control, 'callback') and self.settings_control.callback:
+                self.settings_control.callback()
+            
             QMessageBox.information(self, "Success", "Settings saved successfully!")
         except ValueError:
             QMessageBox.warning(self, "Error", "Invalid input for width or height!")

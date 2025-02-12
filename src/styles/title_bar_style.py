@@ -1,28 +1,28 @@
 # src/styles/title_bar_style.py
-
-from src.styles.application_styles import GREEN, WHITE, DARKGREEN
+from src.styles.themes import AVAILABLE_THEMES
+from src.config import SETTINGS
 
 def get_title_bar_style():
-    """
-    Returns the style sheet for the title bar and its buttons.
-    """
+    current_theme = SETTINGS.get("theme", "green").lower()
+    theme = AVAILABLE_THEMES.get(current_theme, AVAILABLE_THEMES["green"])
+    
     style = f"""
-    /* Title bar styling */
+    /* Title bar background */
     QWidget {{
-        background-color: {GREEN};
+        background-color: {theme['title_bar_bg']};
     }}
 
     /* Title label styling */
     QLabel {{
-        color: {WHITE};
+        color: {theme['title_bar_text']};
         font-size: 14px;
     }}
 
-    /* Button styling */
+    /* QPushButton styling in the title bar */
     QPushButton {{
-        background-color: {WHITE};
-        color: {GREEN};
-        border: 1px solid {DARKGREEN};
+        background-color: {theme['background']};
+        color: {theme['title_bar_bg']};
+        border: 1px solid {theme['button_pressed']};
         border-radius: 3px;
         font-size: 12px;
         min-width: 10px;
@@ -31,8 +31,8 @@ def get_title_bar_style():
 
     /* Button hover effect */
     QPushButton:hover {{
-        background-color: {DARKGREEN};
-        color: {WHITE};
+        background-color: {theme['button_pressed']};
+        color: {theme['background']};
     }}
     """
     return style

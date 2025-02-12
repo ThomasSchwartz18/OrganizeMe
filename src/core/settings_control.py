@@ -1,9 +1,11 @@
+# src/core/settings_control.py
 import json
 import os
-
+from src.config import SETTINGS_PATH
 class SettingsControl:
     def __init__(self):
-        self.settings_path = os.path.join("data", "settings.json")
+        """Initialize the settings controller."""
+        self.settings_path = SETTINGS_PATH
         self.settings = self.load_settings()
         self.callback = None  # Callback to notify when settings are updated
 

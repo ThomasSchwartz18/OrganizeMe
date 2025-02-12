@@ -54,3 +54,5 @@
    ```bash
    git clone https://github.com/your-username/OrganizeMe.git
    cd OrganizeMe
+   pip install -r requirements.txt
+   python main.py

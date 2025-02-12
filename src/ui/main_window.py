@@ -1,11 +1,12 @@
 # src/ui/main_window.py
 from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget, QStackedWidget
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from src.ui.title_bar import TitleBar  # Your custom title bar
 from src.ui.settings_ui import SettingsUI
 from src.core.settings_control import SettingsControl
 from src.config import SETTINGS, load_settings
 from src.ui.logo_widget import LogoWidget
+from src.styles.application_styles import get_global_style
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -64,20 +65,27 @@ class MainWindow(QMainWindow):
             self.title_bar.setTitle(SETTINGS["window_title"])
 
     def open_settings(self):
-        """Open the settings UI."""
+        """Open the settings UI as a modal dialog."""
         self.settings_ui = SettingsUI(self.settings_control)
-        self.settings_ui.close_button.clicked.connect(self.close_settings)
-        self.stacked_widget.addWidget(self.settings_ui)
-        self.stacked_widget.setCurrentWidget(self.settings_ui)
-
+        self.settings_ui.close_button.clicked.connect(self.settings_ui.close)
+        self.settings_ui.exec_()  # Show as a modal dialog
+        
     def close_settings(self):
         """Close the settings UI and return to the main view."""
         self.stacked_widget.setCurrentWidget(self.main_view)
         self.stacked_widget.removeWidget(self.settings_ui)
         self.settings_ui.deleteLater()
-
+        
     def on_settings_updated(self):
-        """Called when settings are updated."""
         global SETTINGS
+        # Reload the settings from file
         SETTINGS = load_settings()
+        # Reapply the global style sheet with the new theme
+        self.setStyleSheet(get_global_style())
+        # Reapply other settings (e.g., window title/size)
         self.apply_settings()
+        # Update the logo widget (or any other theme-dependent widget)
+        self.logo_widget.updateLogo()
+        self.settings_ui.center_window()
+
+

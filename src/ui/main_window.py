@@ -7,6 +7,7 @@ from src.core.settings_control import SettingsControl
 from src.config import SETTINGS, load_settings
 from src.ui.logo_widget import LogoWidget
 from src.styles.application_styles import get_global_style
+from src.calendar.calendar_ui import CalendarUI
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -46,6 +47,11 @@ class MainWindow(QMainWindow):
         # self.main_view_layout.addWidget(self.settings_button)
         self.main_view.setLayout(self.main_view_layout)
         self.stacked_widget.addWidget(self.main_view)
+        
+        # Integrate the CalendarUI as the main view
+        self.calendar_ui = CalendarUI(self)
+        self.stacked_widget.addWidget(self.calendar_ui)
+        self.stacked_widget.setCurrentWidget(self.calendar_ui)
 
         # Initialize settings control and UI
         self.settings_control = SettingsControl()
@@ -87,5 +93,8 @@ class MainWindow(QMainWindow):
         # Update the logo widget (or any other theme-dependent widget)
         self.logo_widget.updateLogo()
         self.settings_ui.center_window()
+        
+        # Refresh Calendar UI Theme
+        self.calendar_ui.reload_theme()
 
 

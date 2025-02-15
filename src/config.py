@@ -10,7 +10,7 @@ def load_settings():
         # Create default settings if the file doesn't exist
         default_settings = {
             "window_title": "My Application",
-            "window_width": 800,
+            "window_width": 400,
             "window_height": 600,
             "theme": "light"
         }

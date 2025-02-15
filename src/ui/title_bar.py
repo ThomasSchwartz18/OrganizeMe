@@ -18,6 +18,7 @@ class TitleBar(QWidget):
 
         # Create a label for the logo
         self.logo_label = QLabel()
+        self.logo_label.setStyleSheet("background: transparent;")  # Ensure no background is painted behind the logo
 
         # Add a stretch so that the buttons appear at the right edge
         self.layout.addStretch()

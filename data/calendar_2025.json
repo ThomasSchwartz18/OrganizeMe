@@ -1,0 +1,224 @@
+[
+    {
+        "title": "IS 4030 Class",
+        "description": "Class for IS 4030\n",
+        "date": "2025-02-13",
+        "start_time": "12:30 PM",
+        "end_time": "01:50 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "weekly",
+            "end_date": "2025-05-01"
+        },
+        "id": "7cf94103-46b2-4fa8-b4e1-94a3dba1999f",
+        "completion": {
+            "2025-02-13": true
+        }
+    },
+    {
+        "title": "Walk Boze",
+        "description": "Take Bozeman for a walk around the neighborhood.",
+        "date": "2025-02-13",
+        "start_time": "11:59 AM",
+        "end_time": "12:59 PM",
+        "color": "#979E73",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "41efaee8-8946-4d67-88f5-3eaee7d1624a",
+        "completion": {
+            "2025-02-13": true
+        }
+    },
+    {
+        "title": "Work @ 5pm",
+        "description": "",
+        "date": "2025-02-13",
+        "start_time": "05:00 PM",
+        "end_time": "09:00 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "33b5e44e-92e7-4335-a759-0c4c6fa577d0",
+        "completion": {
+            "2025-02-13": true
+        }
+    },
+    {
+        "title": "Work @ 8AM",
+        "description": "",
+        "date": "2025-02-14",
+        "start_time": "08:00 AM",
+        "end_time": "12:30 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "5508df37-09e8-4501-8b05-38ffd8ddeb1c",
+        "completion": {
+            "2025-02-14": true
+        }
+    },
+    {
+        "title": "Work @ 11:30AM",
+        "description": "",
+        "date": "2025-02-15",
+        "start_time": "11:30 AM",
+        "end_time": "07:00 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "7d1a907b-ac87-419c-a1cb-2c10846c2a47",
+        "completion": {}
+    },
+    {
+        "title": "Management Class",
+        "description": "",
+        "date": "2025-02-14",
+        "start_time": "01:25 PM",
+        "end_time": "02:20 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "weekly",
+            "end_date": "2025-05-01"
+        },
+        "id": "e76a6423-adba-485c-b7c9-c55828af5ffc",
+        "completion": {
+            "2025-02-14": true
+        }
+    },
+    {
+        "title": "Management Class",
+        "description": "",
+        "date": "2025-02-12",
+        "start_time": "01:25 PM",
+        "end_time": "02:20 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "weekly",
+            "end_date": "2025-05-01"
+        },
+        "id": "6f71c99b-af33-45cd-9d64-c1fca012a3ad",
+        "completion": {
+            "2025-02-12": true
+        }
+    },
+    {
+        "title": "Management Class",
+        "description": "",
+        "date": "2025-02-10",
+        "start_time": "01:25 PM",
+        "end_time": "02:20 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "weekly",
+            "end_date": "2025-05-01"
+        },
+        "id": "5ba84fd1-b71d-47dd-a180-16bdd7f11b79",
+        "completion": {
+            "2025-02-10": true
+        }
+    },
+    {
+        "title": "IS 4030 Class",
+        "description": "",
+        "date": "2025-02-11",
+        "start_time": "12:30 PM",
+        "end_time": "01:50 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "weekly",
+            "end_date": "2025-05-01"
+        },
+        "id": "cab99779-3ac4-4d12-97c0-6329c9d51bec",
+        "completion": {
+            "2025-02-11": true
+        }
+    },
+    {
+        "title": "IS 3020 Class",
+        "description": "",
+        "date": "2025-02-11",
+        "start_time": "09:30 AM",
+        "end_time": "10:50 AM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "weekly",
+            "end_date": "2025-05-01"
+        },
+        "id": "30f228a2-3539-46de-b7a9-33b047388398",
+        "completion": {
+            "2025-02-11": true
+        }
+    },
+    {
+        "title": "IS 3020 Class",
+        "description": "",
+        "date": "2025-02-13",
+        "start_time": "09:30 AM",
+        "end_time": "10:50 AM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "weekly",
+            "end_date": "2025-05-01"
+        },
+        "id": "b03140d0-7f94-4457-b03d-e631fcbcffad",
+        "completion": {
+            "2025-02-13": true
+        }
+    },
+    {
+        "title": "Work @ 5PM",
+        "description": "",
+        "date": "2025-02-18",
+        "start_time": "05:00 PM",
+        "end_time": "09:00 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "772210ec-8462-433d-8049-c8e9cce1cd07",
+        "completion": {}
+    },
+    {
+        "title": "Work @ 8AM",
+        "description": "",
+        "date": "2025-02-19",
+        "start_time": "08:00 AM",
+        "end_time": "12:30 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "edf13a5e-6727-49d8-9cd5-92ec30d2be62",
+        "completion": {}
+    },
+    {
+        "title": "Work @ 5PM",
+        "description": "",
+        "date": "2025-02-20",
+        "start_time": "05:00 PM",
+        "end_time": "09:00 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "6403e695-16b4-40b6-aa42-ac0150ff6917",
+        "completion": {}
+    },
+    {
+        "title": "Work @ 10AM",
+        "description": "",
+        "date": "2025-02-22",
+        "start_time": "10:00 AM",
+        "end_time": "03:00 PM",
+        "color": "#4A90E2",
+        "repeating": {
+            "frequency": "none"
+        },
+        "id": "ea5b55d0-6684-41c2-8509-750904d14410",
+        "completion": {}
+    }
+]

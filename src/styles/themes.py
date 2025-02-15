@@ -23,7 +23,7 @@ PINK_THEME = {
     "slider_handle": "#5F5F5E",       # DARKGREY
     "title_bar_bg": "#F794D6",        # PINK
     "title_bar_text": "#F8E5E8",      # WHITE
-    "light_button_press": "#E37DC1",  # LIGHT PINK
+    "light_button_press": "#E2BAD4",  # LIGHT PINK
 }
 
 # If you plan on having more themes, you can add them here:
